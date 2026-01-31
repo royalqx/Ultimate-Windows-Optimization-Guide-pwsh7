@@ -180,12 +180,11 @@ Reg.exe add 'HKLM\SOFTWARE\Policies\Google\Chrome' /v 'HardwareAccelerationModeE
 Reg.exe add 'HKLM\SOFTWARE\Policies\Google\Chrome' /v 'BackgroundModeEnabled' /t REG_DWORD /d '0' /f | Out-Null
 Reg.exe add 'HKLM\SOFTWARE\Policies\Google\Chrome' /v 'HighEfficiencyModeEnabled' /t REG_DWORD /d '1' /f | Out-Null
 # disable chrome services
-Stop-Service -Name "GoogleChromeElevationService" -Force -ErrorAction SilentlyContinue
-Set-Service -Name "GoogleChromeElevationService" -StartupType Disabled
-Stop-Service -Name "gupdate" -Force -ErrorAction SilentlyContinue
-Set-Service -Name "gupdate" -StartupType Disabled
-Stop-Service -Name "gupdatem" -Force -ErrorAction SilentlyContinue
-Set-Service -Name "gupdatem" -StartupType Disabled
+$services = Get-Service | Where-Object { $_.Name -match 'Google' }
+foreach ($service in $services) {
+Set-Service -Name $service.Name -StartupType Disabled
+Stop-Service -Name $service.Name -Force
+}
 # open ublock origin in web browser
 Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe" "https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh?hl=en"
 show-menu
