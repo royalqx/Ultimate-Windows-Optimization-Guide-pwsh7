@@ -65,7 +65,7 @@ $MultilineComment = @"
     <Executeables />
     <Settings>
       <ProfileSetting>
-        <SettingNameInfo> </SettingNameInfo>
+        <SettingNameInfo>Ultra Low Latency - CPL State</SettingNameInfo>
         <SettingID>390467</SettingID>
         <SettingValue>2</SettingValue>
         <ValueType>Dword</ValueType>
