@@ -1,6 +1,6 @@
-	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
-	{Start-Process pwsh.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
-	Exit}
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")){
+    sudo pwsh.exe -NoProfile -ExecutionPolicy Bypass -File "$PSCommandPath"
+    Exit}
 	$ProgressPreference = 'SilentlyContinue'
 	$ErrorActionPreference = 'SilentlyContinue'
 	$Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
